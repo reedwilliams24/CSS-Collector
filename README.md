@@ -13,11 +13,8 @@ Development Timeline:
 - Create ranking system for public styles
 
 Wireframes:
-[]("https://raw.githubusercontent.com/reedwilliams24/CSS-Collector/master/docs/wireframe1.png")
-[]("https://raw.githubusercontent.com/reedwilliams24/CSS-Collector/master/docs/wireframe2.png")
-
-<br/>
-<br/>
 <br/>
 <img src="https://raw.githubusercontent.com/reedwilliams24/CSS-Collector/master/docs/wireframe1.png">
+<br/>
 <img src="https://raw.githubusercontent.com/reedwilliams24/CSS-Collector/master/docs/wireframe2.png">
+<br/>
