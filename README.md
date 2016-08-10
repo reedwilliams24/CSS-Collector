@@ -1,6 +1,6 @@
 #CSS Collector
 
-###Extract, save, and apply CSS styling to/from DOM elements.
+####Extract, save, and apply CSS styling to/from DOM elements.
 
 Development Timeline:
 - Create algorithm to grab CSS style from a DOM element
