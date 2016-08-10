@@ -1,6 +1,6 @@
 #CSS Collector
 
-####Extract, save, and apply CSS styling to/from DOM elements.
+####Extract, save, and apply CSS styling to/from DOM elements
 
 Development Timeline:
 - Create algorithm to grab CSS style from a DOM element
@@ -11,3 +11,7 @@ Development Timeline:
 - Apply saved styles to DOM elements on click
 - Allow users to upload styles to public collection/view public styles
 - Create ranking system for public styles
+
+Wireframes:
+<img src='.docs/wireframe1.png'/>
+<img src='.docs/wireframe2.png'/>
