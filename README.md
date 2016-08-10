@@ -12,9 +12,9 @@ Development Timeline:
 - Allow users to upload styles to public collection/view public styles
 - Create ranking system for public styles
 
+<br/>
 Wireframes:
 <br/>
 <img src="https://raw.githubusercontent.com/reedwilliams24/CSS-Collector/master/docs/wireframe1.png">
 <br/>
 <img src="https://raw.githubusercontent.com/reedwilliams24/CSS-Collector/master/docs/wireframe2.png">
-<br/>
