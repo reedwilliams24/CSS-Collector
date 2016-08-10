@@ -2,6 +2,8 @@
 
 ####Extract, save, and apply CSS styling to/from DOM elements
 
+<br/>
+
 Development Timeline:
 - Create algorithm to grab CSS style from a DOM element
 - Set up chrome extension
