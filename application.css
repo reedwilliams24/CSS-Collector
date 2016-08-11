@@ -1,0 +1,12 @@
+#my-div {
+  display: flex;
+  justify-content: center;
+  color: red;
+  padding: 10px;
+  margin: 5px;
+  background-color: black;
+}
+
+div {
+  background: green;
+}
