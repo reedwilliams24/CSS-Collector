@@ -27,11 +27,11 @@ const parseRule = function(ruleString){
       result.push(rule.concat(';'));
     }
   }
-  console.log(ruleString, result);
   return result;
 };
 
 const stylePerms = (classList) => {
+  if (classList.length === 0) return [];
   if (classList.length === 1) return [`.${classList[0]}`];
 
   const otherPerms = stylePerms(classList.slice(1));
@@ -56,27 +56,59 @@ document.addEventListener('click', function(e){
   let elementStyles = [];
   if (allStyles[tagName] !== undefined) elementStyles = allStyles[tagName];
 
+  elementStyles.forEach((elStyle) => {
+    elStyle = elStyle.split(':');
+    result[elStyle[0]] = elStyle[1].trim();
+  });
+
   let classStyles = [];
   classList.forEach(function(className){
     let classStyle = allStyles[`.${className}`];
     if (classStyle !== undefined) {
       classStyles = classStyles.concat((classStyle));
+
+      // refactor
+      classStyle.forEach((style) => {
+        style = style.split(':');
+        result[style[0]] = style[1].trim();
+      });
     }
   });
 
   // join class names
-  let classStylePerms = stylePerms(classList);
+  let classStylePerms = stylePerms(classList).map((stylePerm) => {
+    if (stylePerm.split('.').length > 2) {
+      return stylePerm;
+    } else {
+      return '';
+    }
+  });
 
-  console.log(1, classStyles);
   classStylePerms.forEach((classStylePerm) => {
     if (allStyles[classStylePerm] !== undefined) {
       classStyles = classStyles.concat((allStyles[classStylePerm]));
+
+      // refactor
+      classStyles.forEach((style) => {
+        style = style.split(':');
+        result[style[0]] = style[1].trim();
+      });
     }
   });
-  console.log(2, classStyles);
 
-  let idStyle = [];
-  if (allStyles[`#${id}`] !== undefined) idStyle = allStyles[`#${id}`];
+  let idStyles = [];
+  if (allStyles[`#${id}`] !== undefined) idStyles = allStyles[`#${id}`];
 
-  console.log(elementStyles.concat(classStyles).concat(idStyle));
+  idStyles.forEach((idStyle) => {
+    idStyle = idStyle.split(':');
+    result[idStyle[0]] = idStyle[1].trim();
+  });
+
+  console.log(elementStyles.concat(classStyles).concat(idStyles));
+  console.log(result);
+  console.log(e.target);
 });
+
+
+// TODO need to add ranking system
+// ex: clicking on a flag on minesweeper does not grab the green background
