@@ -49,8 +49,6 @@ var permutations = (arr) => {
   return result;
 };
 
-getCSSRules();
-
 document.addEventListener('click', function(e){
   const CSSRules = getCSSRules();
   const tagName = e.target.tagName.toLowerCase();
