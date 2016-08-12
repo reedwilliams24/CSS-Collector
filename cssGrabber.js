@@ -104,9 +104,9 @@ document.addEventListener('click', function(e){
     result[idStyle[0]] = idStyle[1].trim();
   });
 
-  console.log(elementStyles.concat(classStyles).concat(idStyles));
+  // console.log(elementStyles.concat(classStyles).concat(idStyles));
   console.log(result);
-  console.log(e.target);
+  // console.log(e.target);
 });
 
 
