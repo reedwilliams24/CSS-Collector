@@ -29,38 +29,12 @@ const parseRule = (str) => {
   return result;
 };
 
-// const classPermutations = (classList) => {
-//   if (classList.length === 0) return [];
-//   if (classList.length === 1) return [`.${classList[0]}`];
-//
-//   const otherPermutations = classPermutations(classList.slice(1));
-//   const newPermutations = otherPermutations.map((permutation) => {
-//     return `.${classList[0]}${permutation}`;
-//   });
-//
-//   let morePermutations = [];
-//   otherPermutations.forEach((permutation) => {
-//     let idx = 0;
-//     let permArr = permutation.split('.').filter(el => el!=='');
-//
-//     while (idx < permArr.length){
-//       morePermutations =
-            // morePermutations.concat((permArr.slice(0, idx).concat(
-            // [classList[0]]).concat(permArr.slice(idx))));
-//       idx+=1;
-//     }
-//   });
-//
-//   return newPermutations.concat(
-//     otherPermutations).concat([`.${classList[0]}`]);
-// };
-
-var perms = (arr) => {
+var permutations = (arr) => {
   if (arr.length === 0) return [[]];
   if (arr.length === 1) return [arr];
 
   let result = [[arr[0]]];
-  const otherPerms = perms(arr.slice(1));
+  const otherPerms = permutations(arr.slice(1));
 
   otherPerms.forEach((otherPerm) => {
     let idx = 0;
@@ -111,24 +85,18 @@ document.addEventListener('click', function(e){
   });
 
   // multiple headers styling
-  let selectors = [];
+  let selectors = [' '];
 
   selectors.push(tagName);
   classList.forEach((className)=>selectors.push(`.${className}`));
   if (id !== '') selectors.push(`#${id}`);
 
-  perms(selectors).filter(perm => perm.length > 1).forEach((perm)=>{
-    let perm1 = perm.join('');
-    let perm2 = perm.join(' ');
 
-    if (CSSRules[perm1] !== undefined){
-      CSSRules[perm1].forEach((rule) => {
-        let ruleParse = rule.split(':');
-        result[ruleParse[0]] = ruleParse[1].trim();
-      });
-    }
-    if (CSSRules[perm2] !== undefined){
-      CSSRules[perm2].forEach((rule) => {
+  permutations(selectors).filter(perm => perm.length > 1).forEach((perm)=>{
+    perm = perm.join('');
+
+    if (CSSRules[perm] !== undefined){
+      CSSRules[perm].forEach((rule) => {
         let ruleParse = rule.split(':');
         result[ruleParse[0]] = ruleParse[1].trim();
       });
@@ -145,5 +113,7 @@ document.addEventListener('click', function(e){
     result[idStyle[0]] = idStyle[1].trim();
   });
 
-  console.log(result);
+  console.log(
+    tagName, `id: "${id}"`, `classes: "${classList.join(', ')}"`, result
+  );
 });
