@@ -29,30 +29,31 @@ const parseRule = (str) => {
   return result;
 };
 
-const classPermutations = (classList) => {
-  if (classList.length === 0) return [];
-  if (classList.length === 1) return [`.${classList[0]}`];
-
-  const otherPermutations = classPermutations(classList.slice(1));
-  const newPermutations = otherPermutations.map((permutation) => {
-    return `.${classList[0]}${permutation}`;
-  });
-
-  let morePermutations = [];
-  otherPermutations.forEach((permutation) => {
-    let idx = 0;
-    let permArr = permutation.split('.').filter(el => el!=='');
-
-    while (idx < permArr.length){
-      morePermutations = morePermutations.concat((permArr.slice(0, idx).concat([classList[0]]).concat(permArr.slice(idx))));
-
-      idx+=1;
-    }
-  });
-
-  // debugger;
-  return newPermutations.concat(otherPermutations).concat([`.${classList[0]}`]);
-};
+// const classPermutations = (classList) => {
+//   if (classList.length === 0) return [];
+//   if (classList.length === 1) return [`.${classList[0]}`];
+//
+//   const otherPermutations = classPermutations(classList.slice(1));
+//   const newPermutations = otherPermutations.map((permutation) => {
+//     return `.${classList[0]}${permutation}`;
+//   });
+//
+//   let morePermutations = [];
+//   otherPermutations.forEach((permutation) => {
+//     let idx = 0;
+//     let permArr = permutation.split('.').filter(el => el!=='');
+//
+//     while (idx < permArr.length){
+//       morePermutations =
+            // morePermutations.concat((permArr.slice(0, idx).concat(
+            // [classList[0]]).concat(permArr.slice(idx))));
+//       idx+=1;
+//     }
+//   });
+//
+//   return newPermutations.concat(
+//     otherPermutations).concat([`.${classList[0]}`]);
+// };
 
 var perms = (arr) => {
   if (arr.length === 0) return [[]];
@@ -65,7 +66,8 @@ var perms = (arr) => {
     let idx = 0;
     result.push(otherPerm);
     while (idx <= otherPerm.length){
-      result.push(otherPerm.slice(0,idx).concat([arr[0]]).concat(otherPerm.slice(idx)));
+      result.push(
+        otherPerm.slice(0,idx).concat([arr[0]]).concat(otherPerm.slice(idx)));
       idx += 1;
     }
   });
@@ -93,7 +95,7 @@ document.addEventListener('click', function(e){
     result[elStyle[0]] = elStyle[1].trim();
   });
 
-  // class styling
+  // individual class styling
 
   let classStyles = [];
   classList.forEach(function(className){
@@ -101,7 +103,6 @@ document.addEventListener('click', function(e){
     if (classStyle !== undefined) {
       classStyles = classStyles.concat((classStyle));
 
-      // refactor
       classStyle.forEach((style) => {
         style = style.split(':');
         result[style[0]] = style[1].trim();
@@ -109,26 +110,32 @@ document.addEventListener('click', function(e){
     }
   });
 
-  // join class names
-  let classStylePerms = classPermutations(classList).map((stylePerm) => {
-    if (stylePerm.split('.').length > 2) {
-      return stylePerm;
-    } else {
-      return '';
+  // multiple headers styling
+  let selectors = [];
+
+  selectors.push(tagName);
+  classList.forEach((className)=>selectors.push(`.${className}`));
+  if (id !== '') selectors.push(`#${id}`);
+
+  perms(selectors).filter(perm => perm.length > 1).forEach((perm)=>{
+    let perm1 = perm.join('');
+    let perm2 = perm.join(' ');
+
+    if (CSSRules[perm1] !== undefined){
+      CSSRules[perm1].forEach((rule) => {
+        let ruleParse = rule.split(':');
+        result[ruleParse[0]] = ruleParse[1].trim();
+      });
     }
-  });
-
-  classStylePerms.forEach((classStylePerm) => {
-    if (CSSRules[classStylePerm] !== undefined) {
-      classStyles = classStyles.concat((CSSRules[classStylePerm]));
-
-      // refactor
-      classStyles.forEach((style) => {
-        style = style.split(':');
-        result[style[0]] = style[1].trim();
+    if (CSSRules[perm2] !== undefined){
+      CSSRules[perm2].forEach((rule) => {
+        let ruleParse = rule.split(':');
+        result[ruleParse[0]] = ruleParse[1].trim();
       });
     }
   });
+
+  // id styling
 
   let idStyles = [];
   if (CSSRules[`#${id}`] !== undefined) idStyles = CSSRules[`#${id}`];
@@ -138,11 +145,5 @@ document.addEventListener('click', function(e){
     result[idStyle[0]] = idStyle[1].trim();
   });
 
-  // console.log(elementStyles.concat(classStyles).concat(idStyles));
   console.log(result);
-  // console.log(e.target);
 });
-
-
-// need to add ranking system
-// ex: clicking on a flag on minesweeper does not grab the green background
