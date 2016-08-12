@@ -1,7 +1,7 @@
 #my-div {
   display: flex;
   justify-content: center;
-  color: red;
+  /*color: red;*/
   padding: 10px;
   margin: 5px;
   background-color: black;
@@ -9,4 +9,20 @@
 
 div {
   background: green;
+}
+
+.tile.flag {
+  color: red;
+}
+
+.tile {
+  color: green;
+}
+
+.flag {
+  color: purple;
+}
+
+.flag.tile {
+  color: yellow;
 }
