@@ -82,7 +82,7 @@ document.addEventListener('click', function(e){
     }
   });
 
-  // multiple headers styling
+  // multiple selectors styling
   let selectors = [' '];
 
   selectors.push(tagName);
@@ -110,6 +110,8 @@ document.addEventListener('click', function(e){
     idStyle = idStyle.split(':');
     result[idStyle[0]] = idStyle[1].trim();
   });
+
+  // output result
 
   console.log(
     tagName, `id: "${id}"`, `classes: "${classList.join(', ')}"`, result
