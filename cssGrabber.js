@@ -1,6 +1,5 @@
-const getAllStyles = function(){
+const getCSSRules = function(){
   let result = {};
-
   const sheets = document.styleSheets;
 
   for (let sheet of sheets){
@@ -13,20 +12,19 @@ const getAllStyles = function(){
   return result;
 };
 
-const parseRule = function(ruleString){
-  const begIdx = ruleString.indexOf('{');
-  const endIdx = ruleString.indexOf('}');
-
-  let rules = ruleString.slice(begIdx+1, endIdx).trim().split(';').map((rule)=>{
-    return rule.trim();
-  });
+const parseRule = function(str){
+  const begIdx = str.indexOf('{');
+  const endIdx = str.indexOf('}');
   let result = [];
 
-  for (let rule of rules){
-    if (rule.length > 0){
-      result.push(rule.concat(';'));
-    }
-  }
+  const rules = str.slice(begIdx+1, endIdx).trim().split(';').map((rule)=>{
+    return rule.trim();
+  }).filter(el => el!=='');
+
+  rules.forEach((rule) => {
+    result.push(`${rule};`);
+  });
+
   return result;
 };
 
@@ -40,10 +38,10 @@ const stylePerms = (classList) => {
   return newPerms.concat(otherPerms).concat([`.${classList[0]}`]);
 };
 
-getAllStyles();
+getCSSRules();
 
 document.addEventListener('click', function(e){
-  const allStyles = getAllStyles();
+  const allStyles = getCSSRules();
   const tagName = e.target.tagName.toLowerCase();
   let classList = [];
   e.target.classList.forEach((el) => {
