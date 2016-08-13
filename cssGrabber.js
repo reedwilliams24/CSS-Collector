@@ -55,6 +55,7 @@ document.addEventListener('click', function(e){
   const id = e.target.id;
   let result = {};
   let classList = [];
+
   e.target.classList.forEach((el) => { classList.push(el); });
 
   // element styling
@@ -70,8 +71,9 @@ document.addEventListener('click', function(e){
   // individual class styling
 
   let classStyles = [];
-  classList.forEach(function(className){
+  classList.forEach((className) => {
     let classStyle = CSSRules[`.${className}`];
+    
     if (classStyle !== undefined) {
       classStyles = classStyles.concat((classStyle));
 
