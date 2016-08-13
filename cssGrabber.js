@@ -73,7 +73,7 @@ document.addEventListener('click', function(e){
   let classStyles = [];
   classList.forEach((className) => {
     let classStyle = CSSRules[`.${className}`];
-    
+
     if (classStyle !== undefined) {
       classStyles = classStyles.concat((classStyle));
 
@@ -90,7 +90,6 @@ document.addEventListener('click', function(e){
   selectors.push(tagName);
   classList.forEach((className)=>selectors.push(`.${className}`));
   if (id !== '') selectors.push(`#${id}`);
-
 
   permutations(selectors).filter(perm => perm.length > 1).forEach((perm)=>{
     perm = perm.join('');
